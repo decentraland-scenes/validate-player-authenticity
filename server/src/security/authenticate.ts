@@ -1,7 +1,7 @@
 import { Request } from 'express'
-require('isomorphic-fetch')
+import 'isomorphic-fetch'
 
-let catalystUrl =
+const catalystUrl =
   'https://peer-lb.decentraland.org/lambdas/crypto/validate-signature'
 
 type AuthLink = {
