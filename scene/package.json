@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "decentraland-ecs": "latest"
+  },
+  "dependencies": {
+    "decentraland": "^3.8.2-20210928175738.commit-2cd49e4"
   }
 }
