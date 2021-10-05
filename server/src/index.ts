@@ -14,17 +14,17 @@ app.get('/hello-world', (req: any, res: any) => {
   return res.status(200).send('Hello World!')
 })
 
-app.get('/check-legit', async (req: any, res: any) => {
+app.get('/check-validity', async (req: any, res: any) => {
   console.log(req.headers)
 
   if (await runChecks(req, VALID_PARCEL)) {
     console.log('all good')
-    return res.status(200).send({ legit: true, msg: 'Your`re OK' })
+    return res.status(200).send({ valid: true, msg: 'Valid request' })
   } else {
     console.log('rejected')
     return res
       .status(400)
-      .send({ legit: false, error: 'Can`t validate your request' })
+      .send({ valid: false, error: 'Can`t validate your request' })
   }
 })
 

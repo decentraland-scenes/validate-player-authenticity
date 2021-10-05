@@ -1,11 +1,12 @@
 /// --- Set up a system ---
 
 import { signedFetch } from '@decentraland/SignedFetch'
+import * as ui from '@dcl/ui-scene-utils'
 
 theFountainOfBrokenDreams.addComponent(
   new OnPointerDown(
     async () => {
-      let response = await signedFetch('http://localhost:8080/check-legit')
+      let response = await signedFetch('http://localhost:8080/check-validity')
       log(response)
 
       let json
@@ -14,16 +15,22 @@ theFountainOfBrokenDreams.addComponent(
         log(json)
       }
 
-      if (json && json.legit === true) {
-        log('ALL GOOD')
-        engine.removeEntity(grimReaperStatue)
+      if (json && json.valid === true) {
+        log('All good')
+        forestMaidenStatue.getComponent(GLTFShape).visible = true
+        grimReaperStatue.getComponent(GLTFShape).visible = false
+        ui.displayAnnouncement('Your intentions are pure')
       } else {
-        log('YOUR INTENTIONS ARE NOT PURE')
-        engine.removeEntity(forestMaidenStatue)
+        log('Not valid')
+        forestMaidenStatue.getComponent(GLTFShape).visible = false
+        grimReaperStatue.getComponent(GLTFShape).visible = true
+        ui.displayAnnouncement(
+          'Your dark schemes are not welcome here, be gone!'
+        )
       }
     },
     {
-      hoverText: 'Are you pure?',
+      hoverText: 'Is your heart pure?',
     }
   )
 )

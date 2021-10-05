@@ -31,7 +31,9 @@ function buildAuthChain(
   const chain: AuthLink[] = []
 
   while (req.headers[AUTH_CHAIN_HEADER_PREFIX + index]) {
-    chain.push(JSON.parse(req.headers[AUTH_CHAIN_HEADER_PREFIX + index]))
+    chain.push(
+      JSON.parse(req.headers[AUTH_CHAIN_HEADER_PREFIX + index] as string)
+    )
     index++
   }
 

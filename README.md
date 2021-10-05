@@ -26,6 +26,12 @@ When players log into decentraland, they sign a message using Metamask or their 
 
 When you use the `signedFetch()` function in a scene, you're sending additional metadata in the request's headers, that includes a signed message encrypted with the ephemeral key. This signed message includes a timestamp, the player's position on the map, the player's actual address, and the contents of the request itself.
 
+## Branches
+
+The `main` branch of this project delegates the validation of the message signature to an endpoint of a catalyst server.
+
+The `localcheck` branch of this same repository performs the signature validation locally. It only connects to the catalyst server to check that the player is connected and near the reported position.
+
 ## Try it out
 
 **Install the CLI**

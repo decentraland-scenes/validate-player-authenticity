@@ -23,17 +23,17 @@ app.use((0, cors_1.default)({ origin: true }));
 app.get('/hello-world', (req, res) => {
     return res.status(200).send('Hello World!');
 });
-app.get('/check-legit', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/check-validity', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.headers);
     if (yield (0, securityChecks_1.runChecks)(req, exports.VALID_PARCEL)) {
         console.log('all good');
-        return res.status(200).send({ legit: true, msg: 'Your`re OK' });
+        return res.status(200).send({ valid: true, msg: 'Valid request' });
     }
     else {
         console.log('rejected');
         return res
             .status(400)
-            .send({ legit: false, error: 'Can`t validate your request' });
+            .send({ valid: false, error: 'Can`t validate your request' });
     }
 }));
 // start the Express server
