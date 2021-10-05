@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkBannedIPs = exports.checkOrigin = exports.runChecks = exports.TESTS_ENABLED = void 0;
+exports.checkBannedIPs = exports.checkOrigin = exports.runChecks = exports.MARGIN_OF_ERROR = exports.blackListedIPS = exports.TESTS_ENABLED = void 0;
 const authenticate_1 = require("./authenticate");
 const verifyOnMap_1 = require("./verifyOnMap");
 exports.TESTS_ENABLED = true;
-const blackListedIPS = [
+exports.blackListedIPS = [
     `14.161.47.252`,
     `170.233.124.66`,
     `2001:818:db0f:7500:3576:469a:760a:8ded`,
@@ -22,6 +22,8 @@ const blackListedIPS = [
     `178.250.10.230`,
     `185.39.220.156`,
 ];
+// number of parcels to use as margin of error when comparing coordinates
+exports.MARGIN_OF_ERROR = 2;
 function runChecks(req, parcel) {
     return __awaiter(this, void 0, void 0, function* () {
         // fetch metadata from auth headers
@@ -78,7 +80,7 @@ function checkOrigin(req) {
 }
 exports.checkOrigin = checkOrigin;
 function checkBannedIPs(req) {
-    for (const ip of blackListedIPS) {
+    for (const ip of exports.blackListedIPS) {
         if (req.header('X-Forwarded-For') === ip)
             return false;
     }

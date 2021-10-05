@@ -10,8 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkArea = exports.checkCoords = exports.checkPlayer = void 0;
-// number of parcels to use as margin of error when comparing coordinates
-const MARGIN_OF_ERROR = 2;
+const securityChecks_1 = require("./securityChecks");
 // validate that the player is active in a catalyst server, and in the indicated coordinates, or within a margin of error
 function checkPlayer(playerId, server, parcel) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -43,8 +42,8 @@ function checkCoords(coords, parcel) {
     if (parcel[0] === coords[0] && parcel[1] === coords[1]) {
         return true;
     }
-    if (Math.abs(parcel[0] - coords[0]) <= MARGIN_OF_ERROR &&
-        Math.abs(parcel[1] - coords[1]) <= MARGIN_OF_ERROR) {
+    if (Math.abs(parcel[0] - coords[0]) <= securityChecks_1.MARGIN_OF_ERROR &&
+        Math.abs(parcel[1] - coords[1]) <= securityChecks_1.MARGIN_OF_ERROR) {
         return true;
     }
     else {

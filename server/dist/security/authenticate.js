@@ -23,14 +23,13 @@ var AuthLinkType;
 const AUTH_CHAIN_HEADER_PREFIX = 'x-identity-auth-chain-';
 const AUTH_TIMESTAMP_HEADER = 'x-identity-timestamp';
 const AUTH_METADATA_HEADER = 'x-identity-metadata';
-function extractIndex(header) {
-    return parseInt(header.substring(AUTH_CHAIN_HEADER_PREFIX.length), 10);
-}
 function buildAuthChain(req) {
-    const chain = Object.keys(req.headers)
-        .filter((header) => header.includes(AUTH_CHAIN_HEADER_PREFIX))
-        .sort((a, b) => (extractIndex(a) > extractIndex(b) ? 1 : -1))
-        .map((header) => JSON.parse(req.headers[header]));
+    let index = 0;
+    const chain = [];
+    while (req.headers[AUTH_CHAIN_HEADER_PREFIX + index]) {
+        chain.push(JSON.parse(req.headers[AUTH_CHAIN_HEADER_PREFIX + index]));
+        index++;
+    }
     const timestampString = req.header(AUTH_TIMESTAMP_HEADER);
     const metadata = req.header(AUTH_METADATA_HEADER);
     const timestamp = timestampString ? parseInt(timestampString, 10) : undefined;
