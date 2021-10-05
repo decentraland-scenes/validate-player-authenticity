@@ -99,9 +99,15 @@ Or add a set of coordinates to also validate the request's origin on the map:
 await runChecks(req, VALID_PARCEL)
 ```
 
-> NOTE: You can change the `MARGIN_OF_ERROR` property on `securityChecks.ts` to make the location check more or less permissive. A margin or error of 2 will allow locations at + - 2 parcels of distance on either axis from the indicated location.
+### Configurable properties
 
-Enable tests!!!!!!
+The following properties can be configured on `securityChecks.ts`:
+
+- `TESTS_ENABLED`: If true, requests from localhost are allowed. If false, the server also enforces that the requests come from a decentraland domain, and validates with a catalyst server that the player is currently there.
+
+- `MARGIN_OF_ERROR`: Make the location checks more or less permissive. A margin or error of 2 will allow locations at + - 2 parcels of distance on either axis from the indicated location.
+
+- `denyListedIPS`: Add any IPs to this list that you want to block from making any requests.
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
 
