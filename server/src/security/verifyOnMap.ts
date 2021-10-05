@@ -1,5 +1,4 @@
-// number of parcels to use as margin of error when comparing coordinates
-const MARGIN_OF_ERROR = 2
+import { MARGIN_OF_ERROR } from './securityChecks'
 
 // validate that the player is active in a catalyst server, and in the indicated coordinates, or within a margin of error
 export async function checkPlayer(

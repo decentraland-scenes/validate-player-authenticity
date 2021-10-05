@@ -1,9 +1,9 @@
 import { authenticateUsingAuthChain } from './authenticate'
-import { checkArea, checkCoords, checkPlayer } from './verifyOnMap'
+import { checkCoords, checkPlayer } from './verifyOnMap'
 
 export const TESTS_ENABLED = true
 
-const blackListedIPS = [
+export const blackListedIPS = [
   `14.161.47.252`,
   `170.233.124.66`,
   `2001:818:db0f:7500:3576:469a:760a:8ded`,
@@ -12,6 +12,9 @@ const blackListedIPS = [
   `178.250.10.230`,
   `185.39.220.156`,
 ]
+
+// number of parcels to use as margin of error when comparing coordinates
+export const MARGIN_OF_ERROR = 2
 
 export async function runChecks(req: any, parcel?: number[]) {
   // fetch metadata from auth headers
