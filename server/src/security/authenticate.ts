@@ -1,4 +1,4 @@
-import { Request } from 'express'
+import type { Request } from 'express'
 import 'isomorphic-fetch'
 
 const catalystUrl =
@@ -24,17 +24,16 @@ const AUTH_CHAIN_HEADER_PREFIX = 'x-identity-auth-chain-'
 const AUTH_TIMESTAMP_HEADER = 'x-identity-timestamp'
 const AUTH_METADATA_HEADER = 'x-identity-metadata'
 
-function extractIndex(header: string) {
-  return parseInt(header.substring(AUTH_CHAIN_HEADER_PREFIX.length), 10)
-}
-
 function buildAuthChain(
   req: Request
 ): [AuthLink[], number | undefined, string] {
-  const chain = Object.keys(req.headers)
-    .filter((header) => header.includes(AUTH_CHAIN_HEADER_PREFIX))
-    .sort((a, b) => (extractIndex(a) > extractIndex(b) ? 1 : -1))
-    .map((header) => JSON.parse(req.headers[header] as string) as AuthLink)
+  let index = 0
+  const chain: AuthLink[] = []
+
+  while (req.headers[AUTH_CHAIN_HEADER_PREFIX + index]) {
+    chain.push(JSON.parse(req.headers[AUTH_CHAIN_HEADER_PREFIX + index]))
+    index++
+  }
 
   const timestampString = req.header(AUTH_TIMESTAMP_HEADER)
   const metadata = req.header(AUTH_METADATA_HEADER)
