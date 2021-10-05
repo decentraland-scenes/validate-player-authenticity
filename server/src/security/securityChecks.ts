@@ -1,5 +1,5 @@
 import { authenticateUsingAuthChain } from './authenticate'
-import { checkArea, checkCoords, checkPlayer } from './verifyOnMap'
+import { checkCoords, checkPlayer } from './verifyOnMap'
 
 export const TESTS_ENABLED = true
 
