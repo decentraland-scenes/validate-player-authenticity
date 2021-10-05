@@ -1,9 +1,14 @@
 import { authenticateUsingAuthChain } from './authenticate'
 import { checkCoords, checkPlayer } from './verifyOnMap'
 
+// allow requests from localhost
 export const TESTS_ENABLED = true
 
-export const blackListedIPS = [
+// number of parcels to use as margin of error when comparing coordinates
+export const MARGIN_OF_ERROR = 2
+
+// reject any request from these IPs
+export const denyListedIPS = [
   `14.161.47.252`,
   `170.233.124.66`,
   `2001:818:db0f:7500:3576:469a:760a:8ded`,
@@ -12,9 +17,6 @@ export const blackListedIPS = [
   `178.250.10.230`,
   `185.39.220.156`,
 ]
-
-// number of parcels to use as margin of error when comparing coordinates
-export const MARGIN_OF_ERROR = 2
 
 export async function runChecks(req: any, parcel?: number[]) {
   // fetch metadata from auth headers
@@ -88,7 +90,7 @@ export function checkOrigin(req: any) {
 }
 
 export function checkBannedIPs(req: any) {
-  for (const ip of blackListedIPS) {
+  for (const ip of denyListedIPS) {
     if (req.header('X-Forwarded-For') === ip) return false
   }
   return true
