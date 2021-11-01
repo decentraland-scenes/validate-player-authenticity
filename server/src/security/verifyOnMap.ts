@@ -1,4 +1,4 @@
-import { MARGIN_OF_ERROR } from './securityChecks'
+import { MARGIN_OF_ERROR, PeerResponse } from '../utils'
 
 // validate that the player is active in a catalyst server, and in the indicated coordinates, or within a margin of error
 export async function checkPlayer(
@@ -8,20 +8,16 @@ export async function checkPlayer(
 ) {
   const url = 'https://' + server + '/comms/peers/'
   // const url = `https://peer.decentraland.org/comms/peers`
-  console.log('URL being used: ', url)
 
   try {
     const response = await fetch(url)
-    const data = await response.json()
+    const data: PeerResponse = await response.json()
+    if (data.ok) {
+      const player = data.peers.find(
+        peer => peer.address.toLowerCase() === playerId.toLowerCase()
+      )
 
-    for (const player of data) {
-      if (player.address.toLowerCase() === playerId.toLowerCase()) {
-        console.log('found player')
-
-        if (checkCoords(player.parcel, parcel)) {
-          return player.parcel
-        }
-      }
+      return player && checkCoords(player.parcel, parcel)
     }
   } catch (error) {
     console.log(error)
@@ -33,28 +29,6 @@ export async function checkPlayer(
 
 // check coordinates against a single parcel - within a margin of error
 export function checkCoords(coords: number[], parcel: number[]) {
-  if (parcel[0] === coords[0] && parcel[1] === coords[1]) {
-    return true
-  }
-
-  if (
-    Math.abs(parcel[0] - coords[0]) <= MARGIN_OF_ERROR &&
-    Math.abs(parcel[1] - coords[1]) <= MARGIN_OF_ERROR
-  ) {
-    return true
-  } else {
-    console.log('player in other parcels ', coords, ' should be ', parcel)
-    return false
-  }
-}
-
-// check coordinates against a list of valid parcels - within a margin of error
-export function checkArea(coords: number[], parcels: number[][]) {
-  let match = false
-  for (let i = 0; i < 0; i++) {
-    if (checkCoords(coords, parcels[i])) {
-      match = true
-    }
-  }
-  return match
+  const validMargin = (p: number, c: number) => Math.abs(p - c) <= MARGIN_OF_ERROR
+  return validMargin(coords[0], parcel[0]) && validMargin(coords[1], parcel[1])
 }
