@@ -13,18 +13,21 @@ const app = express()
 
 app.use(cors({ origin: true }))
 
-// We want all signatures to be "current". We consider "current" to be the current time,
-// with a 10 minute tolerance to account for network delays and possibly unsynched clocks
 app.get(
   '/check-validity',
   dclExpress({ expiration: VALID_SIGNATURE_TOLERANCE_INTERVAL_MS }),
-  async (req: Request & dcl.DecentralandSignatureData<Metadata>, res: Response) => {
+  async (
+    req: Request & dcl.DecentralandSignatureData<Metadata>,
+    res: Response
+  ) => {
     try {
       await runChecks(req, VALID_PARCEL)
       return res.status(200).send({ valid: true, msg: 'Valid request' })
     } catch (error) {
       console.log(error)
-      return res.status(400).send({ valid: false, error: `Can't validate your request` })
+      return res
+        .status(400)
+        .send({ valid: false, error: `Can't validate your request` })
     }
   }
 )
