@@ -14,8 +14,13 @@ export async function checkPlayer(
     const data: PeerResponse = await response.json()
     if (data.ok) {
       const player = data.peers.find(
-        peer => peer.address.toLowerCase() === playerId.toLowerCase()
+        (peer) =>
+          peer.address && peer.address.toLowerCase() === playerId.toLowerCase()
       )
+
+      if (!player.parcel) {
+        return false
+      }
 
       return player && checkCoords(player.parcel, parcel)
     }
@@ -29,6 +34,7 @@ export async function checkPlayer(
 
 // check coordinates against a single parcel - within a margin of error
 export function checkCoords(coords: number[], parcel: number[]) {
-  const validMargin = (p: number, c: number) => Math.abs(p - c) <= MARGIN_OF_ERROR
+  const validMargin = (p: number, c: number) =>
+    Math.abs(p - c) <= MARGIN_OF_ERROR
   return validMargin(coords[0], parcel[0]) && validMargin(coords[1], parcel[1])
 }
