@@ -6,7 +6,7 @@ import * as ui from '@dcl/ui-scene-utils'
 theFountainOfBrokenDreams.addComponent(
   new OnPointerDown(
     async () => {
-      let response = await signedFetch('http://localhost:8080/check-validity')
+      const response = await signedFetch('http://localhost:8080/check-validity')
       log(response)
 
       let json
@@ -30,7 +30,7 @@ theFountainOfBrokenDreams.addComponent(
       }
     },
     {
-      hoverText: 'Is your heart pure?',
+      hoverText: 'Is your heart pure?'
     }
   )
 )

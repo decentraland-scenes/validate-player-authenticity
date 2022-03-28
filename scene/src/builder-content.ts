@@ -3,7 +3,7 @@ engine.addEntity(_scene)
 const transform = new Transform({
   position: new Vector3(0, 0, 0),
   rotation: new Quaternion(0, 0, 0, 1),
-  scale: new Vector3(1, 1, 1),
+  scale: new Vector3(1, 1, 1)
 })
 _scene.addComponent(transform)
 
@@ -18,7 +18,7 @@ entity.addComponent(gltfShape)
 const transform2 = new Transform({
   position: new Vector3(8, 0, 8),
   rotation: new Quaternion(0, 0, 0, 1),
-  scale: new Vector3(1, 1, 1),
+  scale: new Vector3(1, 1, 1)
 })
 entity.addComponent(transform2)
 
@@ -29,7 +29,7 @@ swampVineTreeLamp.addComponent(
   new Transform({
     position: new Vector3(2.5, 0, 12.5),
     rotation: new Quaternion(0, 0, 0, 1),
-    scale: new Vector3(1, 1, 1),
+    scale: new Vector3(1, 1, 1)
   })
 )
 swampVineTreeLamp.addComponent(new GLTFShape('models/Tree_Lamp_01.glb'))
@@ -42,7 +42,7 @@ curlyMagicBeanSprout.addComponent(
   new Transform({
     position: new Vector3(2.5, 0, 2),
     rotation: new Quaternion(0, 0, 0, 1),
-    scale: new Vector3(1, 1, 1),
+    scale: new Vector3(1, 1, 1)
   })
 )
 curlyMagicBeanSprout.addComponent(new GLTFShape('models/Vegetation_05.glb'))
@@ -60,7 +60,7 @@ theFountainOfBrokenDreams.addComponent(
       -8.429368847373553e-8,
       0.7071067690849304
     ),
-    scale: new Vector3(1, 1, 1),
+    scale: new Vector3(1, 1, 1)
   })
 )
 theFountainOfBrokenDreams.addComponent(new GLTFShape('models/Fountain_02.glb'))
@@ -77,7 +77,7 @@ grimReaperStatue.addComponent(
       3.460462139059928e-8,
       0.9569403529167175
     ),
-    scale: new Vector3(2, 2, 2),
+    scale: new Vector3(2, 2, 2)
   })
 )
 
@@ -96,7 +96,7 @@ forestMaidenStatue.addComponent(
       -1.1013501222123523e-7,
       -0.38268348574638367
     ),
-    scale: new Vector3(1.5, 1.5, 1.5),
+    scale: new Vector3(1.5, 1.5, 1.5)
   })
 )
 
