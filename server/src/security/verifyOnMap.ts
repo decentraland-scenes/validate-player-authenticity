@@ -6,7 +6,7 @@ export async function checkPlayer(
   server: string,
   parcel: number[]
 ) {
-  const url = 'https://' + server + '/comms/peers/'
+  const url = server + '/comms/peers/'
   // const url = `https://peer.decentraland.org/comms/peers`
 
   try {
